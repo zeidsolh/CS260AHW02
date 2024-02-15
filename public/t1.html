@@ -64,6 +64,9 @@
     </div>
 
     <script type="text/javascript">
+
+      
+
       // This is the implementation for the "Reset" button:
 
       function resetBubble(b) {
@@ -82,6 +85,34 @@
       resetButton.addEventListener("click", resetAllBubbles);
 
       // Your solution here:
+      function hideBubbles(bubbleClass) {
+        document.querySelectorAll(bubbleClass).forEach(bubble => {
+          bubble.style.display = 'none';
+        });
+      }
+
+      document.querySelectorAll('.bg-purple').forEach(bubble => {
+        bubble.addEventListener('click', () => {
+          hideBubbles('.bg-purple');
+        });
+      });
+
+      document.querySelectorAll('.bg-green').forEach(bubble => {
+        bubble.addEventListener('click', () => {
+          hideBubbles('.bg-green, .bg-blue');
+        });
+      });
+
+      document.querySelectorAll('.bg-orange.p2-border').forEach(bubble => {
+        bubble.addEventListener('click', () => {
+          bubble.style.display = 'none';
+        });
+      });
+
+      const gradientCircle = document.getElementById('gradient-circle');
+      gradientCircle.addEventListener('mouseover', () => {
+        gradientCircle.style.display = 'none';
+      });
     </script>
   </body>
 </html>
