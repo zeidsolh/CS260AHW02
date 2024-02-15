@@ -42,6 +42,30 @@
 
     <script type="text/javascript">
       // Your solution here:
+
+      function addBubble() {
+        const colors = ["bg-purple", "bg-green", "bg-yellow", "bg-orange", "bg-blue", "bg-red"];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const circle = document.createElement("div");
+        circle.classList.add("p2-circle", randomColor);
+        document.querySelector(".shape-container").appendChild(circle);
+      }
+
+      // add a bubble every 1 second
+      const interval = setInterval(addBubble, 1000);
+
+      // stop adding bubbles when the stop button is clicked
+      document.getElementById("stop-button").addEventListener("click", () => {
+        clearInterval(interval);
+      });
+
+      // remove bubble when clicked
+      document.querySelector(".shape-container").addEventListener("click", (e) => {
+        if (e.target.classList.contains("p2-circle")) {
+          e.target.remove();
+        }
+      });
+      
     </script>
   </body>
 </html>

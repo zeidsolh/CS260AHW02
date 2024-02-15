@@ -32,12 +32,34 @@
         /* You may add additional code here, if you need. */
       }
 
+      .task5-cols {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .task5-div {
+        flex: 1;
+      }
+
+      .task5-div-double {
+        flex: 2;
+      }
+
       /* Add whatever CSS you need below to reference the elements you create in your HTML. */
     </style>
   </head>
   <body>
     <main>
       <!-- Add the appropriate <div> elements here. -->
+      <div class="task5-cols">
+        <div class="task5-div-double bg-blue"></div>
+        <div class="task5-div bg-red"></div>
+      </div>
+      <div class="task5-cols">
+        <div class="task5-div-double bg-green"></div>
+        <div class="task5-div bg-yellow"></div>
+      </div>
     </main>
   </body>
 </html>

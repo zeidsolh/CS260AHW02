@@ -34,6 +34,75 @@
 
     <script type="text/javascript">
       // Your solution here:
+      const apiKey = '11b929760dd310fffec1f173057086bb';
+
+      function displayForecast(forecastData, latitude, longitude) {
+        const forecastContainer = document.querySelector('.task-header');
+        const now = new Date();
+        
+        let content = `
+          <div>
+            <h2>Weather Forecast</h2>
+            <p>Current time: ${now.toLocaleTimeString()}</p>
+            <p>Location: [${latitude}, ${longitude}]</p>
+            <div class="forecast-items">
+        `;
+
+        // Display hourly forecast in 3-hour blocks for the next 24 hours
+        forecastData.list.slice(0, 8).forEach(item => {
+          const forecastTime = new Date(item.dt * 1000);
+          const weatherDescription = item.weather[0].description;
+          const temperature = item.main.temp - 273.15; // Convert from Kelvin to Celsius
+          const windSpeed = item.wind.speed;
+
+          content += `
+            <div class="forecast-item">
+              <h3>Time: ${forecastTime.getHours()}:00</h3>
+              <p>Temperature: ${temperature.toFixed(2)}°C</p>
+              <p>Weather: ${weatherDescription}</p>
+              <p>Wind Speed: ${windSpeed} m/s</p>
+            </div>
+          `;
+        });
+
+        content += `</div></div>`;
+        forecastContainer.innerHTML += content;
+      }
+
+      
+      function fetchForecast(latitude, longitude) {
+        // Get the weather forecast
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Weather data could not be retrieved');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Display the formatted weather data
+            displayForecast(data, latitude, longitude);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            const weatherContainer = document.querySelector('.task-header');
+            weatherContainer.innerHTML = `<p>Error fetching weather data: ${error.message}</p>`;
+          });
+      }
+
+      navigator.geolocation.getCurrentPosition(position => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        fetchForecast(latitude, longitude);
+      }, error => {
+        console.warn('Geolocation error or permission denied, using default coordinates:', error);
+        const defaultLatitude = 40.779;
+        const defaultLongitude = -73.963;
+        fetchForecast(defaultLatitude, defaultLongitude);
+      });
+
+
     </script>
+
   </body>
 </html>
