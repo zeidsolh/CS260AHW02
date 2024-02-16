@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View 1</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+        img {
+            height: 100vh;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <img src="../images/01-duo-splash.png" alt="Duolingo Page 1">
+    <script>
+        // If you press on top half of image go to view2, if you press bottom half of image go to view3
+        document.querySelector('img').addEventListener('click', (e) => {
+            window.location.href = 'view2.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View 4</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+        img {
+            height: 100vh;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <img src="../images/04-duo-lesson.png" alt="Duolingo Page 4">
+    <script>
+        // If you press on top half of image go to view2, if you press bottom half of image go to view3
+        document.querySelector('img').addEventListener('click', (e) => {
+            if (e.clientY < e.target.height / 2) {
+                window.location.href = 'view5.html';
+            } else {
+                window.location.href = 'view3.html';
+            }
+        });
+    </script>
+</body>
+</html>
