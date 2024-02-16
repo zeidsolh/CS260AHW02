@@ -88,12 +88,61 @@
       const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
 
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
       const voiceCommand = document.getElementById("voice-command");
       voiceCommand.onclick = () => {
         // You should also remove this class once the recognizer is done listening.
         voiceCommand.classList.add("listening");
 
         // Your solution here:
+        // 1. Start the recognizer
+        recognition.start();
+      };
+
+      recognition.onresult = (event) => {
+        // 1. Get the transcript from the event
+        const transcript = event.results[0][0].transcript;
+        let wordFound = false;
+        
+        console.log(transcript);
+        // 2. Check if the transcript contains the word "bedroom"
+        if (transcript.includes("bedroom") || transcript.includes("Bedroom")) {
+          document.getElementById("bedroom-square").classList.toggle("lit");
+          let utterance = new SpeechSynthesisUtterance("I’ve just toggled the light in bedroom.");
+          speechSynthesis.speak(utterance);
+          wordFound = true;
+        }
+        // 4. Check if the transcript contains the word "bathroom"
+        if (transcript.includes("bathroom") || transcript.includes("Bathroom")) {
+          document.getElementById("bathroom-square").classList.toggle("lit");
+          let utterance = new SpeechSynthesisUtterance("I’ve just toggled the light in bathroom.");
+          speechSynthesis.speak(utterance);
+          wordFound = true;
+        }
+        // 6. Check if the transcript contains the word "kitchen"
+        if (transcript.includes("kitchen") || transcript.includes("Kitchen")) {
+          document.getElementById("kitchen-square").classList.toggle("lit");
+          let utterance = new SpeechSynthesisUtterance("I’ve just toggled the light in kitchen.");
+          speechSynthesis.speak(utterance);
+          wordFound = true;
+        }
+        // 8. Check if the transcript contains the word "living room"
+        if (transcript.includes("living room") || transcript.includes("Living room")) {
+          document.getElementById("living-room-square").classList.toggle("lit");
+          let utterance = new SpeechSynthesisUtterance("I’ve just toggled the light in living room.");
+          speechSynthesis.speak(utterance);
+          wordFound = true;
+        }
+
+        if(!wordFound) {
+          let utterance = new SpeechSynthesisUtterance("Sorry, I didn’t understand.");
+          speechSynthesis.speak(utterance);
+        }
       };
 
       // Feel free to add any other JavaScript you need.

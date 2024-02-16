@@ -102,6 +102,11 @@
               </label>
 
               <!-- Add a file uploader component here! -->
+              <input
+                type="file"
+                id="profile-pic-file"
+                class="form-control"
+                accept="image/*">
             </div>
             <div class="modal-footer">
               <button
@@ -157,6 +162,35 @@
       };
 
       // Your solution here:
+
+      const nameInput = document.getElementById("name-input");
+      nameInput.oninput = () => {
+        localStorage.setItem("name", nameInput.value);
+      };
+
+      nameInput.value = localStorage.getItem("name") || "User";
+
+      const profilePicFile = document.getElementById("profile-pic-file");
+
+      profilePicFile.onchange = () => {
+        const file = profilePicFile.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+          const dataUrl = event.target.result;
+          resizeAndCropPic(dataUrl).then((croppedDataUrl) => {
+            localStorage.setItem("profilePic", croppedDataUrl);
+            profilePic.src = croppedDataUrl;
+          });
+        };
+
+        reader.readAsDataURL(file);
+      };
+
+      const profilePic = document.querySelector(".profile-pic");
+
+      profilePic.src = localStorage.getItem("profilePic") || "/images/profile.svg";
+
     </script>
   </body>
 </html>
