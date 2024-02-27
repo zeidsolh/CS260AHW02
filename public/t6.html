@@ -145,6 +145,10 @@
         }
       };
 
+      recognition.onend = () => {
+        voiceCommand.classList.remove("listening");
+      };
+
       // Feel free to add any other JavaScript you need.
     </script>
   </body>
